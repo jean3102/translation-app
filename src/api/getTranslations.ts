@@ -1,6 +1,7 @@
-export const getTranslations = async (): Promise<string> => {
+export const getTranslations = async (text: string): Promise<string> => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
+			console.log(`🚀 ------------ text:`, text)
 			resolve('hello world');
 		}, 3000);
 	});

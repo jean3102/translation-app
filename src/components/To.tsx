@@ -1,12 +1,9 @@
-import { Languages } from '../types/languages';
+import useLanguages from '../hooks/useLanguages';
 import useTranslatorContext from '../hooks/useTranslatorContext';
 
-type ToProps = {
-	languages: Languages[] | undefined;
-};
-
-const To = ({ languages }: ToProps) => {
-	const { to, translatedText } = useTranslatorContext();
+const To = () => {
+	const { languages } = useLanguages();
+	const { to, handleChangeTo, translatedText } = useTranslatorContext();
 
 	return (
 		<article className="to">
@@ -17,7 +14,7 @@ const To = ({ languages }: ToProps) => {
 					list="toLanguage"
 					id="to"
 					name="to"
-					onChange={() => {}}
+					onChange={handleChangeTo}
 				/>
 				<datalist id="toLanguage">
 					{languages?.map(({ country_code, language_name }, index) => (

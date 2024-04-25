@@ -11,9 +11,7 @@ main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* margin-top: 5rem; */
 	gap: 1.1rem;
-	/* background-color: aqua; */
 	margin: 1rem;
 	.translation {
 		display: flex;
@@ -29,6 +27,7 @@ main {
 			flex-wrap: wrap;
 		}
 		textarea {
+			font-size: 1rem;
 			width: 300px;
 			border: 0;
 			outline: none;

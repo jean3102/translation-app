@@ -28,7 +28,7 @@ const To = () => {
 			</section>
 			<textarea
 				readOnly={true}
-				value={translatedText}
+				value={translatedText === '...' ? '' : translatedText}
 			/>
 		</article>
 	);

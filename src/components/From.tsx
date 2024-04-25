@@ -6,7 +6,9 @@ type Timeout = ReturnType<typeof setTimeout>;
 
 const From = () => {
 	const { languages } = useLanguages();
+	console.log(`🚀 ------------ languages:`, languages);
 	const { from, handleChangeFrom, handleTranslations } = useTranslatorContext();
+
 	let timeoutId: Timeout;
 
 	const handleChanges = (event: ChangeEvent<HTMLTextAreaElement>) => {

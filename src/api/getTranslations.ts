@@ -1,14 +1,7 @@
-import languages from '../api/test_data/languages.json';
-import { Languages } from '../types/languages';
-export const getLanguages = async (): Promise<Languages[]> => {
+export const getTranslations = async (): Promise<string> => {
 	return new Promise((resolve) => {
 		setTimeout(() => {
-			const data = languages.languages.map((language: Languages) => ({
-				country_code: language.country_code,
-				language: language.language,
-				language_name: language.language_name,
-			}));
-			resolve(data);
+			resolve('hello world');
 		}, 3000);
 	});
 

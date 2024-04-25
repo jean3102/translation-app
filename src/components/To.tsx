@@ -1,14 +1,38 @@
-import DataList from './DataList';
+import { Languages } from '../types/languages';
+import useTranslatorContext from '../hooks/useTranslatorContext';
 
-const To = () => {
+type ToProps = {
+	languages: Languages[] | undefined;
+};
+
+const To = ({ languages }: ToProps) => {
+	const { to, translatedText } = useTranslatorContext();
+
 	return (
 		<article className="to">
-			<DataList
-				label="Choose a language:"
-				list="toLanguage"
-				name="to"
+			<section className="dataList">
+				<label htmlFor="from">Choose a language:</label>
+				<input
+					value={to}
+					list="toLanguage"
+					id="to"
+					name="to"
+					onChange={() => {}}
+				/>
+				<datalist id="toLanguage">
+					{languages?.map(({ country_code, language_name }, index) => (
+						<option
+							key={index}
+							value={`${country_code} - ${language_name}`}>
+							{language_name}
+						</option>
+					))}
+				</datalist>
+			</section>
+			<textarea
+				readOnly={true}
+				value={translatedText}
 			/>
-			<textarea>hello word</textarea>
 		</article>
 	);
 };

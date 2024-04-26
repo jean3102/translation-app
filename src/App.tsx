@@ -3,16 +3,22 @@ import Button from './components/Button';
 import From from './components/From';
 import To from './components/To';
 import useTranslatorContext from './hooks/useTranslatorContext';
+import { FROM_DEFAULT_VALUE } from './utils/constants';
 
 function App() {
-	const { changeLanguage } = useTranslatorContext();
-	console.log('object is')
+	const { changeLanguage, from } = useTranslatorContext();
+	const change = () => {
+		if (from !== FROM_DEFAULT_VALUE) {
+			changeLanguage();
+		}
+	};
+	console.log('object is');
 	return (
 		<main>
 			<h1>Translation App</h1>
 			<section className="translation">
 				<From />
-				<Button onClick={() => changeLanguage()}>
+				<Button onClick={change}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="20"

@@ -2,14 +2,15 @@ import { useState } from 'react';
 import { TranslatorContext } from '../contexts/TranslatorContext';
 import useTranslatedText from '../hooks/useGetTranslations';
 import { splitText } from '../utils/splitText';
+import { FROM_DEFAULT_VALUE, TO_DEFAULT_VALUE } from '../utils/constants';
 
 type TranslatorProvider = {
 	children: React.ReactNode;
 };
 const TranslatorProvider = ({ children }: TranslatorProvider) => {
 	const [translatedText, setTranslatedText] = useState('');
-	const [from, setFrom] = useState('Spanish-es');
-	const [to, setTo] = useState('English-en');
+	const [from, setFrom] = useState(FROM_DEFAULT_VALUE);
+	const [to, setTo] = useState(TO_DEFAULT_VALUE);
 	const { fetchTranslatedText } = useTranslatedText();
 
 	const changeLanguage = () => {

@@ -1,26 +1,45 @@
-export const getTranslations = async (text: string): Promise<string> => {
+import { Translations } from '../types/translate';
+import translations from '../api/test_data/translations.json';
+// import errorMsj from '../api/test_data/translationError.json';
+import { notyf } from '../libs/noty';
+type MyResponse = {
+	translation: string;
+	error?: string; // Define error property as optional
+};
+
+export const getTranslations = async ({
+	target,
+	text,
+}: Translations): Promise<MyResponse | undefined> => {
+	console.log(`🚀 ------------ text:`, text);
+	console.log(`🚀 ------------ target:`, target);
 	return new Promise((resolve) => {
 		setTimeout(() => {
-			resolve(text);
-		}, 2000);
+			const translate = translations.translations[0].translation;
+			const data = { translation: translate, error: undefined };
+			resolve(data);
+		}, 3000);
 	});
 
-	// const myHeaders = new Headers();
-	// myHeaders.append('apikey', import.meta.env.VITE_API_KEY);
-	/* The code snippet `const response = await getTranslations(translatedText);
-setTranslatedText(response);` is making an asynchronous call to the `getTranslations` function
-with the `translatedText` as a parameter. */
+	try {
+		const myHeaders = new Headers();
+		const url = `https://api.apilayer.com/language_translation/translate?target=${target}`;
 
-	// const requestOptions: RequestInit = {
-	// 	method: 'GET',
-	// 	redirect: 'follow',
-	// 	headers: myHeaders,
-	// };
+		myHeaders.append('apikey', import.meta.env.VITE_API_KEY);
+		const response = await fetch(url, {
+			method: 'POST',
+			redirect: 'follow',
+			headers: myHeaders,
+			body: text,
+		});
 
-	// const data = await fetch(
-	// 	'https://api.apilayer.com/language_translation/languages',
-	// 	requestOptions
-	// );https://typescript.tv/errors/#ts2352
-
-	// return data.json();
+		if (!response.ok) {
+			throw new Error(`HTTP error! Status: ${response.status}`);
+		}
+		const data = await response.json();
+		const translate = data.translations[0].translation;
+		return { translation: translate, error: data.error };
+	} catch (error) {
+		if (error instanceof TypeError) notyf.error(error.message);
+	}
 };

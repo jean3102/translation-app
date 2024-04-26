@@ -17,13 +17,15 @@ const To = () => {
 					onChange={handleChangeTo}
 				/>
 				<datalist id="toLanguage">
-					{languages?.map(({ country_code, language_name }, index) => (
-						<option
-							key={index}
-							value={`${country_code} - ${language_name}`}>
-							{language_name}
-						</option>
-					))}
+					{languages?.map(
+						({ country_code, language_name, language }, index) => (
+							<option
+								key={index}
+								value={`${language_name}- ${language}`}>
+								{country_code}
+							</option>
+						)
+					)}
 				</datalist>
 			</section>
 			<textarea

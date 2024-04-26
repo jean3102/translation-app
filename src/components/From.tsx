@@ -6,7 +6,6 @@ type Timeout = ReturnType<typeof setTimeout>;
 
 const From = () => {
 	const { languages } = useLanguages();
-	console.log(`🚀 ------------ languages:`, languages);
 	const { from, handleChangeFrom, handleTranslations } = useTranslatorContext();
 
 	let timeoutId: Timeout;
@@ -32,13 +31,15 @@ const From = () => {
 					onChange={handleChangeFrom}
 				/>
 				<datalist id="fromLanguage">
-					{languages?.map(({ country_code, language_name }, index) => (
-						<option
-							key={index}
-							value={`${language_name}`}>
-							{country_code}
-						</option>
-					))}
+					{languages?.map(
+						({ country_code, language_name, language }, index) => (
+							<option
+								key={index}
+								value={`${language_name}- ${language}`}>
+								{country_code}
+							</option>
+						)
+					)}
 				</datalist>
 			</section>
 			<textarea onChange={handleChanges} />

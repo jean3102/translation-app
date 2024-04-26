@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { TranslatorContext } from '../contexts/TranslatorContext';
 import useTranslatedText from '../hooks/useGetTranslations';
+import { splitText } from '../utils/splitText';
 
 type TranslatorProvider = {
 	children: React.ReactNode;
 };
 const TranslatorProvider = ({ children }: TranslatorProvider) => {
 	const [translatedText, setTranslatedText] = useState('');
-	const [from, setFrom] = useState('Spanish');
-	const [to, setTo] = useState('English');
+	const [from, setFrom] = useState('Spanish-es');
+	const [to, setTo] = useState('English-en');
 	const { fetchTranslatedText } = useTranslatedText();
 
 	const changeLanguage = () => {
@@ -28,8 +29,14 @@ const TranslatorProvider = ({ children }: TranslatorProvider) => {
 
 	const handleTranslations = async (text: string) => {
 		setTranslatedText((prevValue) => `${prevValue} ...`);
-		const data = await fetchTranslatedText(text);
-		if (data) setTranslatedText(data);
+		const data = await fetchTranslatedText({
+			target: splitText(to),
+			text: text,
+		});
+		setTranslatedText('');
+		if (data) {
+			setTranslatedText(data);
+		}
 	};
 
 	return (

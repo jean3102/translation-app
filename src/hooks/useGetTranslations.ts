@@ -1,14 +1,20 @@
 import { notyf } from '../libs/noty';
 import { getTranslations } from '../api/getTranslations';
+import { Translations } from '../types/translate';
 
 const useTranslatedText = () => {
-	const fetchTranslatedText = async (text: string) => {
+	const fetchTranslatedText = async (data: Translations) => {
 		try {
-			return await getTranslations(text);
+			const response = await getTranslations(data);
+			if (response?.error) {
+				throw new Error(response.error);
+			}
+			return response?.translation;
 		} catch (error) {
 			if (error) {
-				if (error instanceof Error)
-					notyf.error(`Caught an error:${error.message}`);
+				if (error instanceof Error) {
+					notyf.error(`Caught an error:${error}`);
+				}
 			} else {
 				// Handling non-Error types of errors
 				notyf.error(`Caught a non-Error type of error:${error}`);

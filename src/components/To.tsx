@@ -7,27 +7,21 @@ const To = () => {
 
 	return (
 		<article className="to">
-			<section className="dataList">
-				<label htmlFor="from">Choose a language:</label>
-				<input
-					value={to}
-					list="toLanguage"
-					id="to"
-					name="to"
-					onChange={handleChangeTo}
-				/>
-				<datalist id="toLanguage">
-					{languages?.map(
-						({ country_code, language_name, language }, index) => (
-							<option
-								key={index}
-								value={`${language_name}- ${language}`}>
-								{country_code}
-							</option>
-						)
-					)}
-				</datalist>
-			</section>
+			<label htmlFor="to">Choose a Language:</label>
+
+			<select
+				className="select"
+				value={to}
+				onChange={handleChangeTo}
+				id="to">
+				{languages?.map(({ country_code, language_name, language }, index) => (
+					<option
+						key={index}
+						value={language}>
+						{language_name}-{country_code}
+					</option>
+				))}
+			</select>
 			<textarea
 				readOnly={true}
 				value={translatedText === '...' ? '' : translatedText}

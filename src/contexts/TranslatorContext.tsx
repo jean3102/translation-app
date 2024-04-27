@@ -3,8 +3,8 @@ type TranslatorContext = {
 	translatedText: string;
 	from: string;
 	to: string;
-	handleChangeFrom: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	handleChangeTo: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	handleChangeFrom: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+	handleChangeTo: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 	changeLanguage: () => void;
 	handleTranslations: (value: string) => void;
 };

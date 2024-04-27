@@ -1,4 +1,4 @@
-@import url('./dataList.css');
+@import url('./select.css');
 
 * {
 	margin: 0;
@@ -11,29 +11,36 @@ main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* margin-top: 5rem; */
-	gap: 1.1rem;
-	/* background-color: aqua; */
+	gap: 1rem;
 	margin: 1rem;
+
+	.groupButton {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+		padding-top: 10%;
+	}
+
 	.translation {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 1rem;
 		padding: 1em;
-		.from,
-		.to {
+		.translateFrom,
+		.translateTo {
 			display: flex;
 			flex-direction: column;
 			gap: 1rem;
 			flex-wrap: wrap;
 		}
 		textarea {
-			width: 300px;
+			font-size: 1rem;
+			width: 290px;
 			border: 0;
 			outline: none;
 			resize: none;
-			height: 150px;
+			height: 140px;
 			box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
 				rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
 			padding: 2rem;
@@ -42,7 +49,17 @@ main {
 }
 
 @media screen and (max-width: 900px) {
-	.translation {
-		flex-direction: column;
+	main {
+		gap: 0rem;
+
+		.translation {
+			flex-direction: column;
+		}
+
+		.groupButton {
+			padding-top: 0%;
+			flex-direction: row;
+			justify-content: center;
+		}
 	}
 }

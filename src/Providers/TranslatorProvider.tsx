@@ -1,33 +1,33 @@
-import { useState } from 'react';
 import { TranslatorContext } from '../contexts/TranslatorContext';
+import useTranslatorProvider from '../hooks/useTranslatorProvider';
 
 type TranslatorProvider = {
 	children: React.ReactNode;
 };
+
 const TranslatorProvider = ({ children }: TranslatorProvider) => {
-	const [translatedText, setTranslatedText] = useState('');
-	const [from, setFrom] = useState('ES - Spanish');
-	const [to, setTo] = useState('US - English');
-
-	const changeLanguage = () => {
-		setFrom(to);
-		setTo(from);
-	};
-
-	const handleTranslations = (text: string) => {
-		setTimeout(() => {
-			setTranslatedText(text);
-		}, 2000);
-	};
+	const {
+		translateFrom,
+		translateTo,
+		translatedText,
+		handleChangeFrom,
+		handleChangeTo,
+		changeLanguage,
+		handleTranslations,
+		handleSubmit,
+	} = useTranslatorProvider();
 
 	return (
 		<TranslatorContext.Provider
 			value={{
-				from: from,
-				to: to,
+				translateFrom: translateFrom,
+				translateTo: translateTo,
+				handleChangeFrom: handleChangeFrom,
+				handleChangeTo: handleChangeTo,
 				translatedText: translatedText,
 				changeLanguage: changeLanguage,
 				handleTranslations: handleTranslations,
+				handleSubmit: handleSubmit,
 			}}>
 			{children}
 		</TranslatorContext.Provider>

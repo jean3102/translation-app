@@ -1,0 +1,11 @@
+{
+	"translations": [
+		{
+			"translation": "hello world"
+		}
+	],
+	"word_count": 2,
+	"character_count": 10,
+	"detected_language": "es",
+	"detected_language_confidence": 0.9145209359060599
+}

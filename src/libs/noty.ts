@@ -2,7 +2,7 @@ import { Notyf } from 'notyf';
 import './notyf.min.css';
 
 export const notyf = new Notyf({
-	duration: 1500,
+	duration: 5500,
 	position: {
 		x: 'center',
 		y: 'bottom',

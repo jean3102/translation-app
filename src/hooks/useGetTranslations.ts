@@ -1,31 +1,27 @@
-import { useEffect, useState } from 'react';
 import { notyf } from '../libs/noty';
 import { getTranslations } from '../api/getTranslations';
+import { Translations } from '../types/translate';
 
 const useTranslatedText = () => {
-	const [translatedText, setTranslatedText] = useState('');
-	const [loading, setLoading] = useState(true);
-	useEffect(() => {
-		const fetchTranslatedText = async () => {
-			try {
-				const response = await getTranslations();
-				setTranslatedText(response);
-				localStorage.setItem('languages', JSON.stringify(response));
-			} catch (error) {
-				if (error) {
-					if (error instanceof Error)
-						notyf.error(`Caught an error:${error.message}`);
-				} else {
-					// Handling non-Error types of errors
-					notyf.error(`Caught a non-Error type of error:${error}`);
-				}
-			} finally {
-				setLoading(false);
+	const fetchTranslatedText = async (data: Translations) => {
+		try {
+			const response = await getTranslations(data);
+			if (response?.error) {
+				throw new Error(response.error);
 			}
-		};
-		fetchTranslatedText();
-	}, []);
-	return { translatedText, loading };
+			return response?.translation;
+		} catch (error) {
+			if (error) {
+				if (error instanceof Error) {
+					notyf.error(`Caught an error:${error}`);
+				}
+			} else {
+				// Handling non-Error types of errors
+				notyf.error(`Caught a non-Error type of error:${error}`);
+			}
+		}
+	};
+	return { fetchTranslatedText };
 };
 
 export default useTranslatedText;

@@ -3,19 +3,18 @@ import useLanguages from '../hooks/useLanguages';
 import { FROM_DEFAULT_VALUE } from '../utils/constants';
 
 
-const From = () => {
+const TranslateFrom = () => {
 	const { languages } = useLanguages();
-	const { from, handleChangeFrom, handleTranslations } = useTranslatorContext();
-
+	const { translateFrom, handleChangeFrom, handleTranslations } = useTranslatorContext();
 
 	return (
-		<article className="from">
-			<label htmlFor="from">Choose a Language:</label>
+		<article className="translateFrom">
+			<label htmlFor="translateFrom">Choose a Language:</label>
 			<select
 				className="select"
-				value={from}
+				value={translateFrom}
 				onChange={handleChangeFrom}
-				id="from">
+				id="translateFrom">
 				<option value={FROM_DEFAULT_VALUE}>Detect language</option>
 				{languages?.map(({ country_code, language_name, language }, index) => (
 					<option
@@ -30,4 +29,4 @@ const From = () => {
 	);
 };
 
-export default From;
+export default TranslateFrom;

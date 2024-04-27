@@ -11,23 +11,23 @@ type TranslatorProvider = {
 const TranslatorProvider = ({ children }: TranslatorProvider) => {
 	const [textValue, setTextValue] = useState('');
 	const [translatedText, setTranslatedText] = useState('');
-	const [from, setFrom] = useState(FROM_DEFAULT_VALUE);
-	const [to, setTo] = useState(TO_DEFAULT_VALUE);
+	const [translateFrom, setTranslateFrom] = useState(FROM_DEFAULT_VALUE);
+	const [translateTo, setTranslateTo] = useState(TO_DEFAULT_VALUE);
 	const { fetchTranslatedText } = useTranslatedText();
 
 	const changeLanguage = () => {
-		setFrom(to);
-		setTo(from);
+		setTranslateTo(translateFrom);
+		setTranslateFrom(translateTo);
 	};
 
 	const handleChangeFrom = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		const { value } = event.target;
-		setFrom(value);
+		setTranslateFrom(value);
 	};
 
 	const handleChangeTo = (event: React.ChangeEvent<HTMLSelectElement>) => {
 		const { value } = event.target;
-		setTo(value);
+		setTranslateTo(value);
 	};
 
 	const handleTranslations = (
@@ -44,7 +44,7 @@ const TranslatorProvider = ({ children }: TranslatorProvider) => {
 		
 		setTranslatedText((prevValue) => `${prevValue} ...`);
 		const data = await fetchTranslatedText({
-			target: splitText(to),
+			target: splitText(translateTo),
 			text: textValue,
 		});
 		setTranslatedText('');
@@ -56,8 +56,8 @@ const TranslatorProvider = ({ children }: TranslatorProvider) => {
 	return (
 		<TranslatorContext.Provider
 			value={{
-				from: from,
-				to: to,
+				translateFrom: translateFrom,
+				translateTo: translateTo,
 				handleChangeFrom: handleChangeFrom,
 				handleChangeTo: handleChangeTo,
 				translatedText: translatedText,

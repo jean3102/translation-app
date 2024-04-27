@@ -1,20 +1,15 @@
 import './styles/App.css';
 import Button from './components/Button';
-import From from './components/From';
-import To from './components/To';
+import From from './components/TranslateFrom';
+import To from './components/TranslateTo';
 import useTranslatorContext from './hooks/useTranslatorContext';
 import { FROM_DEFAULT_VALUE } from './utils/constants';
 
 function App() {
 	const { changeLanguage, handleSubmit, from } = useTranslatorContext();
 	const change = () => {
-		console.log('no');
-		if (from !== FROM_DEFAULT_VALUE) {
-			console.log('yes');
-			changeLanguage();
-		}
+		if (from !== FROM_DEFAULT_VALUE) changeLanguage();
 	};
-	console.log('object is');
 	return (
 		<main>
 			<h2>Translation App</h2>
@@ -24,7 +19,7 @@ function App() {
 				<div className="groupButton">
 					<form onSubmit={handleSubmit}>
 						<Button
-							type="button"
+							type="submit"
 							color="green">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -39,7 +34,7 @@ function App() {
 						</Button>
 					</form>
 					<Button
-						type="submit"
+						type="button"
 						onClick={change}>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"

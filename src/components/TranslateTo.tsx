@@ -1,19 +1,20 @@
 import useLanguages from '../hooks/useLanguages';
 import useTranslatorContext from '../hooks/useTranslatorContext';
 
-const To = () => {
+const TranslateTo = () => {
 	const { languages } = useLanguages();
-	const { to, handleChangeTo, translatedText } = useTranslatorContext();
+	const { translateTo, handleChangeTo, translatedText } =
+		useTranslatorContext();
 
 	return (
-		<article className="to">
-			<label htmlFor="to">Choose a Language:</label>
+		<article className="translateTo">
+			<label htmlFor="translateTo">Choose a Language:</label>
 
 			<select
 				className="select"
-				value={to}
+				value={translateTo}
 				onChange={handleChangeTo}
-				id="to">
+				id="translateTo">
 				{languages?.map(({ country_code, language_name, language }, index) => (
 					<option
 						key={index}
@@ -30,4 +31,4 @@ const To = () => {
 	);
 };
 
-export default To;
+export default TranslateTo;

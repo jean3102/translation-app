@@ -6,9 +6,10 @@ import useTranslatorContext from './hooks/useTranslatorContext';
 import { FROM_DEFAULT_VALUE } from './utils/constants';
 
 function App() {
-	const { changeLanguage, handleSubmit, from } = useTranslatorContext();
+	const { changeLanguage, handleSubmit, translateFrom } =
+		useTranslatorContext();
 	const change = () => {
-		if (from !== FROM_DEFAULT_VALUE) changeLanguage();
+		if (translateFrom !== FROM_DEFAULT_VALUE) changeLanguage();
 	};
 	return (
 		<main>

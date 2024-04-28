@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getLanguages } from '../api/getLanguages';
 import { notyf } from '../libs/noty';
-import { Languages } from '../types/languages';
+import { Languages } from '../models/languages';
 
 const useLanguages = () => {
 	const [languages, setLanguages] = useState<Languages[]>();

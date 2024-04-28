@@ -1,6 +1,6 @@
 import { notyf } from '../libs/noty';
 import { getTranslations } from '../api/getTranslations';
-import { Translations } from '../types/translate';
+import { Translations } from '../models/translate';
 
 const useTranslatedText = () => {
 	const fetchTranslatedText = async (data: Translations) => {

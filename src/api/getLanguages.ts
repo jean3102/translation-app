@@ -1,5 +1,5 @@
 import languages from '../api/test_data/languages.json';
-import { Languages } from '../types/languages';
+import { Languages } from '../models/languages';
 export const getLanguages = async (): Promise<Languages[]> => {
 	return new Promise((resolve) => {
 		setTimeout(() => {

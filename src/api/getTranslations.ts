@@ -1,4 +1,4 @@
-import { Translations } from '../types/translate';
+import { Translations } from '../models/translate';
 import translations from '../api/test_data/translations.json';
 // import errorMsj from '../api/test_data/translationError.json';
 import { notyf } from '../libs/noty';

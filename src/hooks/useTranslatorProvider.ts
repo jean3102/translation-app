@@ -3,13 +3,16 @@ import useTranslateFrom from './useTranslateFrom';
 import useTranslateTo from './useTranslateTo';
 import { useState } from 'react';
 import { notyf } from '../libs/noty';
+import useIdentifyLanguages from './useIdentifyLanguages';
 
 const useTranslatorProvider = () => {
 	const [textValue, setTextValue] = useState('');
 	const [translatedText, setTranslatedText] = useState('');
 	const { fetchTranslatedText } = useTranslatedText();
-	const { translateFrom, handleChangeFrom, setTranslateFrom } = useTranslateFrom();
+	const { translateFrom, handleChangeFrom, setTranslateFrom } =
+		useTranslateFrom();
 	const { translateTo, handleChangeTo, setTranslateTo } = useTranslateTo();
+	const { fetchIdentifyLanguages } = useIdentifyLanguages();
 
 	const changeLanguage = () => {
 		setTranslateTo(translateFrom);
@@ -29,10 +32,20 @@ const useTranslatorProvider = () => {
 		if (textValue === '') return notyf.error('type text before translation');
 
 		setTranslatedText((prevValue) => `${prevValue} ...`);
+
+		const identify = await fetchIdentifyLanguages(textValue);
+
+		if (!identify) {
+			setTranslatedText('');
+			return;
+		}
+		setTranslateFrom(identify);
+
 		const data = await fetchTranslatedText({
-			target: translateFrom,
-			text: textValue,
+			target: translateTo,
+			text: textValue.trim(),
 		});
+
 		setTranslatedText('');
 		if (data) {
 			setTranslatedText(data);
@@ -40,8 +53,8 @@ const useTranslatorProvider = () => {
 	};
 
 	return {
-        translateFrom,
-        translateTo,
+		translateFrom,
+		translateTo,
 		translatedText,
 		handleChangeFrom,
 		handleChangeTo,

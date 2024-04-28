@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getLanguages } from '../api/getLanguages';
+import { getLanguages } from '../services/getLanguages';
 import { notyf } from '../libs/noty';
-import { Languages } from '../types/languages';
+import { Languages } from '../models/languages';
 
 const useLanguages = () => {
 	const [languages, setLanguages] = useState<Languages[]>();
@@ -14,10 +14,10 @@ const useLanguages = () => {
 			} catch (error) {
 				if (error) {
 					if (error instanceof Error)
-						notyf.error(`Caught an error:${error.message}`);
+						notyf.error(error.message);
 				} else {
 					// Handling non-Error types of errors
-					notyf.error(`Caught a non-Error type of error:${error}`);
+					notyf.error(`Error: ${error}`);
 				}
 			}
 		};

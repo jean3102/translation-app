@@ -1,10 +1,9 @@
-import { Translations } from '../types/translate';
-import translations from '../api/test_data/translations.json';
+import { Translations } from '../models/translate';
+// import translations from '../services/test_data/translations.json';
 // import errorMsj from '../api/test_data/translationError.json';
 import { notyf } from '../libs/noty';
 type MyResponse = {
 	translation: string;
-	error?: string; // Define error property as optional
 };
 
 export const getTranslations = async ({
@@ -13,13 +12,13 @@ export const getTranslations = async ({
 }: Translations): Promise<MyResponse | undefined> => {
 	console.log(`🚀 ------------ text:`, text);
 	console.log(`🚀 ------------ target:`, target);
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			const translate = translations.translations[0].translation;
-			const data = { translation: translate, error: undefined };
-			resolve(data);
-		}, 3000);
-	});
+	// return new Promise((resolve) => {
+	// 	setTimeout(() => {
+	// 		const translate = translations.translations[0].translation;
+	// 		const data = { translation: translate, error: undefined };
+	// 		resolve(data);
+	// 	}, 3000);
+	// });
 
 	try {
 		const myHeaders = new Headers();
@@ -32,14 +31,15 @@ export const getTranslations = async ({
 			headers: myHeaders,
 			body: text,
 		});
-
-		if (!response.ok) {
-			throw new Error(`HTTP error! Status: ${response.status}`);
-		}
 		const data = await response.json();
+
+		if (data.error !== undefined) throw new Error(data.error);
+		if (response.status === 429) throw new Error('You have exceeded your daily/monthly API rate limit');
+
 		const translate = data.translations[0].translation;
-		return { translation: translate, error: data.error };
+		return { translation: translate };
 	} catch (error) {
-		if (error instanceof TypeError) notyf.error(error.message);
+		console.log(`🚀 ------------ error:`, error);
+		notyf.error(`Alert: ${error}`);
 	}
 };

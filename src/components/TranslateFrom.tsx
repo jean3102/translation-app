@@ -6,7 +6,6 @@ import { FROM_DEFAULT_VALUE } from '../utils/constants';
 const TranslateFrom = () => {
 	const { languages } = useLanguages();
 	const { translateFrom, handleChangeFrom, handleTranslations } = useTranslatorContext();
-
 	return (
 		<article className="translateFrom">
 			<label htmlFor="translateFrom">Choose a Language:</label>

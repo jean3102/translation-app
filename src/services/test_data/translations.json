@@ -1,11 +1,7 @@
 {
-	"translations": [
-		{
-			"translation": "hello world"
+	"data": {
+		"translations": {
+			"translatedText": "¡Hola Mundo!"
 		}
-	],
-	"word_count": 2,
-	"character_count": 10,
-	"detected_language": "es",
-	"detected_language_confidence": 0.9145209359060599
+	}
 }

@@ -1,13 +1,20 @@
-import { Translated, Translations, TranslationsResponse } from '../models/translate';
+import {
+	Translated,
+	Translations,
+	TranslationsResponse,
+} from '../models/translate';
 // import translations from '../services/test_data/translations.json';
 // import errorMsj from '../api/test_data/translationError.json';
-import { handleFetchRequest } from '../utils/handleFetchRequest';
+import {
+	HandleFetchRequest,
+	handleFetchRequest,
+} from '../utils/handleFetchRequest';
 
+export const getTranslations = async (
+	data: Translations
+): Promise<Translated | undefined> => {
+	console.log(`🚀 ------------ data:`, data);
 
-export const getTranslations = async ({
-	target,
-	text,
-}: Translations): Promise<Translated | undefined> => {
 	// return new Promise((resolve) => {
 	// 	setTimeout(() => {
 	// 		const translate = translations.translations[0].translation;
@@ -19,12 +26,20 @@ export const getTranslations = async ({
 	// const translate = data.translations[0].translation;
 	// return { translation: translate };
 
-	const translate = (await handleFetchRequest({
-		url: `https://api.apilayer.com/language_translation/translate?target=${target}`,
+	const options: HandleFetchRequest = {
 		method: 'POST',
-		body: text,
-	})) as TranslationsResponse;
+		headers: {
+			'X-RapidAPI-Key': '4db323c20amsh3ad80618ad827c8p154c0bjsn52e8e19452d9',
+			'X-RapidAPI-Host': 'deep-translate1.p.rapidapi.com',
+		},
+		body: JSON.stringify(data),
+	};
+
+	const translate = (await handleFetchRequest(
+		'https://deep-translate1.p.rapidapi.com/language/translate/v2',
+		options
+	)) as TranslationsResponse;
 
 	console.log('translate', translate);
-	return { translation: translate?.translations[0].translation };
+	return { translation: translate.data.translations.translatedText };
 };

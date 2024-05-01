@@ -1,5 +1,8 @@
 import { IdentifyLanguage, IdentifyResponse } from '../models/languages';
-import { handleFetchRequest } from '../utils/handleFetchRequest';
+import {
+	HandleFetchRequest,
+	handleFetchRequest,
+} from '../utils/handleFetchRequest';
 // import languages from './test_data/identifyLanguages.json';
 // import errorMsj from '../api/test_data/translationError.json';
 // import { notyf } from '../libs/noty';
@@ -8,20 +11,29 @@ export async function getIdentifyLanguages(
 	text: string
 ): Promise<IdentifyLanguage | undefined> {
 	console.log(`🚀 ------------ text:`, text);
+	console.log(`🚀 ------------ text:`, text);
 	// return new Promise((resolve) => {
 	// 	setTimeout(() => {
-	// 		const translate = languages.languages[0].language;
-	// 		const data = { translation: translate, error: undefined };
+	// 		const translate = languages.data.detections[0].language;
+	// 		const data = { translation: translate };
+	// 		console.log(`🚀 ------------ translate:`, translate);
 	// 		resolve(data);
-	// 	}, 3000);
+	// 	}, 500);
 	// });
 
-	const identify = (await handleFetchRequest({
-		url: `https://api.apilayer.com/language_translation/identify`,
+	const options: HandleFetchRequest = {
 		method: 'POST',
-		body:text
-	})) as IdentifyResponse;
+		headers: {
+			'X-RapidAPI-Key': '4db323c20amsh3ad80618ad827c8p154c0bjsn52e8e19452d9',
+			'X-RapidAPI-Host': 'deep-translate1.p.rapidapi.com',
+		},
+		body: JSON.stringify({ q: text }),
+	};
 
-	console.log('translate', identify);
-	return { translation: identify.languages[0].language };
+	const identify = (await handleFetchRequest(
+		'https://deep-translate1.p.rapidapi.com/language/translate/v2/detect',
+		options
+	)) as IdentifyResponse;
+
+	return { translation: identify.data.detections[0].language };
 }

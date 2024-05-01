@@ -4,8 +4,7 @@ import { FROM_DEFAULT_VALUE } from '../utils/constants';
 
 const TranslateFrom = ({ languages }: SelectProps) => {
 	const { translateFrom, handleChangeFrom, handleTranslations, textValue } =
-	useTranslatorContext();
-	console.log(`🚀 ------------ textValue:`, textValue)
+		useTranslatorContext();
 	return (
 		<article className="translateFrom">
 			<label htmlFor="translateFrom">Choose a Language:</label>
@@ -15,11 +14,11 @@ const TranslateFrom = ({ languages }: SelectProps) => {
 				onChange={handleChangeFrom}
 				id="translateFrom">
 				<option value={FROM_DEFAULT_VALUE}>Detect language</option>
-				{languages?.map(({ language_name, language }, index) => (
+				{languages?.map(({ language, name }, index) => (
 					<option
 						key={index}
 						value={language}>
-						{language_name}-{language}
+						{name}-{language}
 					</option>
 				))}
 			</select>

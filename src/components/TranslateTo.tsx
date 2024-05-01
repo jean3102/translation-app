@@ -2,7 +2,8 @@ import useTranslatorContext from '../hooks/useTranslatorContext';
 import { SelectProps } from '../models/languages';
 
 const TranslateTo = ({ languages }: SelectProps) => {
-	const { translateTo, handleChangeTo, translatedText } = useTranslatorContext();
+	const { translateTo, handleChangeTo, translatedText } =
+		useTranslatorContext();
 	return (
 		<article className="translateTo">
 			<label htmlFor="translateTo">Choose a Language:</label>
@@ -12,11 +13,11 @@ const TranslateTo = ({ languages }: SelectProps) => {
 				value={translateTo}
 				onChange={handleChangeTo}
 				id="translateTo">
-				{languages?.map(({ language_name, language }, index) => (
+				{languages?.map(({ language, name }, index) => (
 					<option
 						key={index}
 						value={language}>
-						{language_name}-{language}
+						{name}-{language}
 					</option>
 				))}
 			</select>

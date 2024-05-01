@@ -1,7 +1,11 @@
+// export type Languages = {
+// 	country_code: string;
+// 	language: string;
+// 	language_name: string;
+// };
 export type Languages = {
-	country_code: string;
 	language: string;
-	language_name: string;
+	name: string;
 };
 
 export type LanguagesResponse = {
@@ -17,8 +21,11 @@ export type SelectProps = {
 };
 
 export type IdentifyResponse = {
-	languages: {
-		language: string;
-		confidence: number;
-	}[];
+	data: {
+		detections: {
+			language: string;
+			isReliable: boolean;
+			confidence: number;
+		}[];
+	};
 };

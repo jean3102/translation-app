@@ -1,7 +1,9 @@
 export type TranslationsResponse = {
-	translations: {
-		translation: string;
-	}[];
+	data: {
+		translations: {
+			translatedText: string;
+		};
+	};
 };
 
 export type Translated = {
@@ -9,6 +11,7 @@ export type Translated = {
 };
 
 export type Translations = {
+	q: string;
+	source: string;
 	target: string;
-	text: string;
 };

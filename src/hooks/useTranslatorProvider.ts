@@ -9,13 +9,17 @@ const useTranslatorProvider = () => {
 	const [textValue, setTextValue] = useState('');
 	const [translatedText, setTranslatedText] = useState('');
 	const { fetchTranslatedText } = useTranslatedText();
-	const { translateFrom, handleChangeFrom, setTranslateFrom } = useTranslateFrom();
+	const { translateFrom, handleChangeFrom, setTranslateFrom } =
+		useTranslateFrom();
 	const { translateTo, handleChangeTo, setTranslateTo } = useTranslateTo();
 	const { fetchIdentifyLanguages } = useIdentifyLanguages();
 
 	const changeLanguage = () => {
+		console.log(`🚀 ------------ textValue:`, textValue);
 		setTranslateTo(translateFrom);
 		setTranslateFrom(translateTo);
+		setTranslatedText(textValue);
+		setTextValue(translatedText);
 	};
 
 	const handleTranslations = (
@@ -28,30 +32,39 @@ const useTranslatorProvider = () => {
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 
+		let identify = null;
 		if (textValue === '') return notyf.error('type text before translation');
 
-		setTranslatedText((prevValue) => `${prevValue} ...`);
-
-		const identify = await fetchIdentifyLanguages(textValue);
-
-		if (!identify) {
-			setTranslatedText('');
+		if (translateFrom === translateTo) {
+			setTranslatedText(textValue);
 			return;
 		}
+		
+		setTranslatedText((prevValue) => `${prevValue} ...`);
+		identify = await fetchIdentifyLanguages(textValue);
+
+		if (!identify) {
+			setTranslatedText(textValue);
+			return;
+		}
+
 		setTranslateFrom(identify);
 
+		if (identify === translateTo) {
+			setTranslatedText(textValue);
+			return;
+		}
 		const data = await fetchTranslatedText({
 			target: translateTo,
 			text: textValue.trim(),
 		});
 
 		setTranslatedText('');
-		if (data) {
-			setTranslatedText(data);
-		}
+		if (data) setTranslatedText(data);
 	};
 
 	return {
+		textValue,
 		translateFrom,
 		translateTo,
 		translatedText,

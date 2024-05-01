@@ -7,6 +7,7 @@ type TranslatorProvider = {
 
 const TranslatorProvider = ({ children }: TranslatorProvider) => {
 	const {
+		textValue,
 		translateFrom,
 		translateTo,
 		translatedText,
@@ -20,6 +21,7 @@ const TranslatorProvider = ({ children }: TranslatorProvider) => {
 	return (
 		<TranslatorContext.Provider
 			value={{
+				textValue:textValue,
 				translateFrom: translateFrom,
 				translateTo: translateTo,
 				handleChangeFrom: handleChangeFrom,

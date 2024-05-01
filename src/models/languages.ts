@@ -4,6 +4,10 @@ export type Languages = {
 	language_name: string;
 };
 
+export type LanguagesResponse = {
+	languages: Languages[];
+};
+
 export type IdentifyLanguage = {
 	languages: {
 		confidence: string;

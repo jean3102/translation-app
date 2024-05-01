@@ -1,7 +1,7 @@
-import { Translations } from '../models/translate';
+import { Translations, TranslationsResponse } from '../models/translate';
 // import translations from '../services/test_data/translations.json';
 // import errorMsj from '../api/test_data/translationError.json';
-import { notyf } from '../libs/noty';
+import { handleFetchRequest } from '../utils/handleFetchRequest';
 type MyResponse = {
 	translation: string;
 };
@@ -10,8 +10,6 @@ export const getTranslations = async ({
 	target,
 	text,
 }: Translations): Promise<MyResponse | undefined> => {
-	console.log(`🚀 ------------ text:`, text);
-	console.log(`🚀 ------------ target:`, target);
 	// return new Promise((resolve) => {
 	// 	setTimeout(() => {
 	// 		const translate = translations.translations[0].translation;
@@ -20,26 +18,15 @@ export const getTranslations = async ({
 	// 	}, 3000);
 	// });
 
-	try {
-		const myHeaders = new Headers();
-		const url = `https://api.apilayer.com/language_translation/translate?target=${target}`;
+	// const translate = data.translations[0].translation;
+	// return { translation: translate };
 
-		myHeaders.append('apikey', import.meta.env.VITE_API_KEY);
-		const response = await fetch(url, {
-			method: 'POST',
-			redirect: 'follow',
-			headers: myHeaders,
-			body: text,
-		});
-		const data = await response.json();
+	const translate = (await handleFetchRequest({
+		url: `https://api.apilayer.com/language_translation/translate?target=${target}`,
+		method: 'POST',
+		body: text,
+	})) as TranslationsResponse;
 
-		if (data.error !== undefined) throw new Error(data.error);
-		if (response.status === 429) throw new Error('You have exceeded your daily/monthly API rate limit');
-
-		const translate = data.translations[0].translation;
-		return { translation: translate };
-	} catch (error) {
-		console.log(`🚀 ------------ error:`, error);
-		notyf.error(`Alert: ${error}`);
-	}
+	console.log('translate', translate);
+	return { translation: translate?.translations[0].translation };
 };

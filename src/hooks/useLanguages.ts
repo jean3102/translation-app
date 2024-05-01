@@ -13,10 +13,8 @@ const useLanguages = () => {
 				localStorage.setItem('languages', JSON.stringify(response));
 			} catch (error) {
 				if (error) {
-					if (error instanceof Error)
-						notyf.error(error.message);
+					if (error instanceof Error) notyf.error(error.message);
 				} else {
-					// Handling non-Error types of errors
 					notyf.error(`Error: ${error}`);
 				}
 			}

@@ -1,11 +1,9 @@
-import useLanguages from '../hooks/useLanguages';
 import useTranslatorContext from '../hooks/useTranslatorContext';
+import { SelectProps } from '../models/languages';
 
-const TranslateTo = () => {
-	const { languages } = useLanguages();
+const TranslateTo = ({ languages }: SelectProps) => {
 	const { translateTo, handleChangeTo, translatedText } =
 		useTranslatorContext();
-
 	return (
 		<article className="translateTo">
 			<label htmlFor="translateTo">Choose a Language:</label>

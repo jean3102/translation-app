@@ -9,8 +9,7 @@ const useTranslatorProvider = () => {
 	const [textValue, setTextValue] = useState('');
 	const [translatedText, setTranslatedText] = useState('');
 	const { fetchTranslatedText } = useTranslatedText();
-	const { translateFrom, handleChangeFrom, setTranslateFrom } =
-		useTranslateFrom();
+	const { translateFrom, handleChangeFrom, setTranslateFrom } = useTranslateFrom();
 	const { translateTo, handleChangeTo, setTranslateTo } = useTranslateTo();
 	const { fetchIdentifyLanguages } = useIdentifyLanguages();
 

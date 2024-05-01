@@ -1,13 +1,16 @@
 import './styles/App.css';
 import Button from './components/Button';
-import From from './components/TranslateFrom';
-import To from './components/TranslateTo';
+import TranslateFrom from './components/TranslateFrom';
+import TranslateTo from './components/TranslateTo';
 import useTranslatorContext from './hooks/useTranslatorContext';
 import { FROM_DEFAULT_VALUE } from './utils/constants';
+import useLanguages from './hooks/useLanguages';
 
 function App() {
 	const { changeLanguage, handleSubmit, translateFrom } =
 		useTranslatorContext();
+	const { languages } = useLanguages();
+
 	const change = () => {
 		if (translateFrom !== FROM_DEFAULT_VALUE) changeLanguage();
 	};
@@ -15,7 +18,7 @@ function App() {
 		<main>
 			<h2>Translation App</h2>
 			<section className="translation">
-				<From />
+				<TranslateFrom languages={languages} />
 
 				<div className="groupButton">
 					<form onSubmit={handleSubmit}>
@@ -49,7 +52,7 @@ function App() {
 						</svg>
 					</Button>
 				</div>
-				<To />
+				<TranslateTo languages={languages} />
 			</section>
 		</main>
 	);

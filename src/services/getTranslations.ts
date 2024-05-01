@@ -1,15 +1,13 @@
-import { Translations, TranslationsResponse } from '../models/translate';
+import { Translated, Translations, TranslationsResponse } from '../models/translate';
 // import translations from '../services/test_data/translations.json';
 // import errorMsj from '../api/test_data/translationError.json';
 import { handleFetchRequest } from '../utils/handleFetchRequest';
-type MyResponse = {
-	translation: string;
-};
+
 
 export const getTranslations = async ({
 	target,
 	text,
-}: Translations): Promise<MyResponse | undefined> => {
+}: Translations): Promise<Translated | undefined> => {
 	// return new Promise((resolve) => {
 	// 	setTimeout(() => {
 	// 		const translate = translations.translations[0].translation;

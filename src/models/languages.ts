@@ -9,12 +9,16 @@ export type LanguagesResponse = {
 };
 
 export type IdentifyLanguage = {
-	languages: {
-		confidence: string;
-		language: string;
-	};
+	translation: string;
 };
 
 export type SelectProps = {
 	languages: Languages[] | undefined;
+};
+
+export type IdentifyResponse = {
+	languages: {
+		language: string;
+		confidence: number;
+	}[];
 };

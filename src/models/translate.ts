@@ -4,6 +4,10 @@ export type TranslationsResponse = {
 	}[];
 };
 
+export type Translated = {
+	translation: string;
+};
+
 export type Translations = {
 	target: string;
 	text: string;

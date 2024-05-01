@@ -5,15 +5,6 @@ import {
 } from '../utils/handleFetchRequest';
 
 export const getLanguages = async (): Promise<Languages[]> => {
-	// const languages = await import('../services/test_data/languages.json');
-	// return new Promise((resolve) => {
-	// 	setTimeout(() => {
-	// 		const translate = languages.languages;
-	// 		console.log(`🚀 ------------ translate:`, translate);
-
-	// 		resolve(translate);
-	// 	}, 500);
-	// });
 
 	const options: HandleFetchRequest = {
 		method: 'GET',

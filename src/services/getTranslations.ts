@@ -13,18 +13,6 @@ import {
 export const getTranslations = async (
 	data: Translations
 ): Promise<Translated | undefined> => {
-	console.log(`🚀 ------------ data:`, data);
-
-	// return new Promise((resolve) => {
-	// 	setTimeout(() => {
-	// 		const translate = translations.translations[0].translation;
-	// 		const data = { translation: translate, error: undefined };
-	// 		resolve(data);
-	// 	}, 3000);
-	// });
-
-	// const translate = data.translations[0].translation;
-	// return { translation: translate };
 
 	const options: HandleFetchRequest = {
 		method: 'POST',
@@ -40,6 +28,5 @@ export const getTranslations = async (
 		options
 	)) as TranslationsResponse;
 
-	console.log('translate', translate);
 	return { translation: translate.data.translations.translatedText };
 };

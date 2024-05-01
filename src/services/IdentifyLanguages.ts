@@ -10,17 +10,6 @@ import {
 export async function getIdentifyLanguages(
 	text: string
 ): Promise<IdentifyLanguage | undefined> {
-	console.log(`🚀 ------------ text:`, text);
-	console.log(`🚀 ------------ text:`, text);
-	// return new Promise((resolve) => {
-	// 	setTimeout(() => {
-	// 		const translate = languages.data.detections[0].language;
-	// 		const data = { translation: translate };
-	// 		console.log(`🚀 ------------ translate:`, translate);
-	// 		resolve(data);
-	// 	}, 500);
-	// });
-
 	const options: HandleFetchRequest = {
 		method: 'POST',
 		headers: {

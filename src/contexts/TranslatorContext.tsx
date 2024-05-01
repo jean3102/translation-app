@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 type TranslatorContext = {
+	textValue: string;
 	translatedText: string;
 	translateFrom: string;
 	translateTo: string;

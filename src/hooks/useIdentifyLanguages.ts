@@ -1,8 +1,8 @@
 import { getIdentifyLanguages } from '../services/IdentifyLanguages';
 
 const useIdentifyLanguages = () => {
-	const fetchIdentifyLanguages = async (text: string) => {
-		const response = await getIdentifyLanguages(text);
+	const fetchIdentifyLanguages = async (data: string) => {
+		const response = await getIdentifyLanguages(data);
 		return response?.translation;
 	};
 

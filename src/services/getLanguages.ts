@@ -1,30 +1,31 @@
-import languages from '../services/test_data/languages.json';
-import { Languages } from '../models/languages';
+import { Languages, LanguagesResponse } from '../models/languages';
+import {
+	HandleFetchRequest,
+	handleFetchRequest,
+} from '../utils/handleFetchRequest';
+
 export const getLanguages = async (): Promise<Languages[]> => {
-	return new Promise((resolve) => {
-		setTimeout(() => {
-			const data = languages.languages.map((language: Languages) => ({
-				country_code: language.country_code,
-				language: language.language,
-				language_name: language.language_name,
-			}));
-			resolve(data);
-		}, 3000);
-	});
+	// const languages = await import('../services/test_data/languages.json');
+	// return new Promise((resolve) => {
+	// 	setTimeout(() => {
+	// 		const translate = languages.languages;
+	// 		console.log(`🚀 ------------ translate:`, translate);
 
-	// const myHeaders = new Headers();
-	// myHeaders.append('apikey', import.meta.env.VITE_API_KEY);
+	// 		resolve(translate);
+	// 	}, 500);
+	// });
 
-	// const requestOptions: RequestInit = {
-	// 	method: 'GET',
-	// 	redirect: 'follow',
-	// 	headers: myHeaders,
-	// };
+	const options: HandleFetchRequest = {
+		method: 'GET',
+		headers: {
+			'X-RapidAPI-Key': '4db323c20amsh3ad80618ad827c8p154c0bjsn52e8e19452d9',
+			'X-RapidAPI-Host': 'deep-translate1.p.rapidapi.com',
+		},
+	};
 
-	// const data = await fetch(
-	// 	'https://api.apilayer.com/language_translation/languages',
-	// 	requestOptions
-	// );https://typescript.tv/errors/#ts2352
-
-	// return data.json();
+	const languages = (await handleFetchRequest(
+		'https://deep-translate1.p.rapidapi.com/language/translate/v2/languages',
+		options
+	)) as LanguagesResponse;
+	return languages.languages;
 };

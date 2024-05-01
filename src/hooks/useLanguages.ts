@@ -1,24 +1,15 @@
 import { useEffect, useState } from 'react';
 import { getLanguages } from '../services/getLanguages';
-import { notyf } from '../libs/noty';
 import { Languages } from '../models/languages';
 
 const useLanguages = () => {
 	const [languages, setLanguages] = useState<Languages[]>();
 	useEffect(() => {
 		const fetchLanguages = async () => {
-			try {
-				const response = await getLanguages();
+			const response = await getLanguages();
+			if (response) {
 				setLanguages(response);
 				localStorage.setItem('languages', JSON.stringify(response));
-			} catch (error) {
-				if (error) {
-					if (error instanceof Error)
-						notyf.error(error.message);
-				} else {
-					// Handling non-Error types of errors
-					notyf.error(`Error: ${error}`);
-				}
 			}
 		};
 
@@ -26,9 +17,7 @@ const useLanguages = () => {
 		if (!localStorage.getItem('languages')) fetchLanguages();
 
 		const savedItems = localStorage.getItem('languages');
-		if (savedItems) {
-			setLanguages(JSON.parse(savedItems));
-		}
+		if (savedItems) setLanguages(JSON.parse(savedItems));
 	}, []);
 
 	return { languages };

@@ -1,11 +1,10 @@
 import useTranslatorContext from '../hooks/useTranslatorContext';
-import useLanguages from '../hooks/useLanguages';
+import { SelectProps } from '../models/languages';
 import { FROM_DEFAULT_VALUE } from '../utils/constants';
 
-
-const TranslateFrom = () => {
-	const { languages } = useLanguages();
-	const { translateFrom, handleChangeFrom, handleTranslations } = useTranslatorContext();
+const TranslateFrom = ({ languages }: SelectProps) => {
+	const { translateFrom, handleChangeFrom, handleTranslations, textValue } =
+		useTranslatorContext();
 	return (
 		<article className="translateFrom">
 			<label htmlFor="translateFrom">Choose a Language:</label>
@@ -15,15 +14,19 @@ const TranslateFrom = () => {
 				onChange={handleChangeFrom}
 				id="translateFrom">
 				<option value={FROM_DEFAULT_VALUE}>Detect language</option>
-				{languages?.map(({ country_code, language_name, language }, index) => (
+				{languages?.map(({ language, name }, index) => (
 					<option
 						key={index}
 						value={language}>
-						{language_name}-{country_code}
+						{name}-{language}
 					</option>
 				))}
 			</select>
-			<textarea onChange={handleTranslations} />
+			<textarea
+				placeholder="Type anything…"
+				onChange={handleTranslations}
+				value={textValue}
+			/>
 		</article>
 	);
 };

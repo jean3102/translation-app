@@ -1,17 +1,20 @@
-import { Translations } from '../models/translate';
+import {
+	Translated,
+	Translations,
+	TranslationsResponse,
+} from '../models/translate';
 // import translations from '../services/test_data/translations.json';
 // import errorMsj from '../api/test_data/translationError.json';
-import { notyf } from '../libs/noty';
-type MyResponse = {
-	translation: string;
-};
+import {
+	HandleFetchRequest,
+	handleFetchRequest,
+} from '../utils/handleFetchRequest';
 
-export const getTranslations = async ({
-	target,
-	text,
-}: Translations): Promise<MyResponse | undefined> => {
-	console.log(`🚀 ------------ text:`, text);
-	console.log(`🚀 ------------ target:`, target);
+export const getTranslations = async (
+	data: Translations
+): Promise<Translated | undefined> => {
+	console.log(`🚀 ------------ data:`, data);
+
 	// return new Promise((resolve) => {
 	// 	setTimeout(() => {
 	// 		const translate = translations.translations[0].translation;
@@ -20,26 +23,23 @@ export const getTranslations = async ({
 	// 	}, 3000);
 	// });
 
-	try {
-		const myHeaders = new Headers();
-		const url = `https://api.apilayer.com/language_translation/translate?target=${target}`;
+	// const translate = data.translations[0].translation;
+	// return { translation: translate };
 
-		myHeaders.append('apikey', import.meta.env.VITE_API_KEY);
-		const response = await fetch(url, {
-			method: 'POST',
-			redirect: 'follow',
-			headers: myHeaders,
-			body: text,
-		});
-		const data = await response.json();
+	const options: HandleFetchRequest = {
+		method: 'POST',
+		headers: {
+			'X-RapidAPI-Key': '4db323c20amsh3ad80618ad827c8p154c0bjsn52e8e19452d9',
+			'X-RapidAPI-Host': 'deep-translate1.p.rapidapi.com',
+		},
+		body: JSON.stringify(data),
+	};
 
-		if (data.error !== undefined) throw new Error(data.error);
-		if (response.status === 429) throw new Error('You have exceeded your daily/monthly API rate limit');
+	const translate = (await handleFetchRequest(
+		'https://deep-translate1.p.rapidapi.com/language/translate/v2',
+		options
+	)) as TranslationsResponse;
 
-		const translate = data.translations[0].translation;
-		return { translation: translate };
-	} catch (error) {
-		console.log(`🚀 ------------ error:`, error);
-		notyf.error(`Alert: ${error}`);
-	}
+	console.log('translate', translate);
+	return { translation: translate.data.translations.translatedText };
 };
